@@ -1,0 +1,20 @@
+<%= button_to "Main Menu", main_menu_index_path, method: :get %>
+<%= button_to "Cart", cart_index_path, method: :get %>
+<br>
+<%= form_with(url: productSearch_transaction_index_path, method: "get", local: true) do %>
+  <%= label_tag(:searchCriteria, "search for:") %>
+  <%= text_field_tag(:searchCriteria) %>
+  <%= submit_tag("search") %>
+<% end %>
+<br>
+
+<% @products.each do |product| %>
+  LookupCode: <%= product.lookupCode %> <br>
+  Price: <%= product.price %> <br> 
+  <%= button_to "Add To Cart", addItem_cart_index_path(lookupCode: product.lookupCode), params: { lookupCode: product.lookupCode, original: "productAdd" }, method: :get, action: :addItem %>
+  ----------------------------- 
+  <br>
+<% end %>
+
+<% # <%= button_to "go to cart", cart_index_path, method: :get %>
+<%= button_to "Transaction Summary", transaction_index_path, method: :post %>
